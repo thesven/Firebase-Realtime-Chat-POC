@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_RealTimeChat_Firebase_RealTimeChat_FirebaseUITests : NSObject
+@end
+@implementation PodsDummy_Pods_RealTimeChat_Firebase_RealTimeChat_FirebaseUITests
+@end
