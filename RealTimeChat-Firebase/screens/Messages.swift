@@ -34,7 +34,7 @@ struct Messages: View {
                 Button(action: {
                     viewModel.sendMessage(messageContent: messageField, docId: chatroom.id)
                 }, label: {
-                    Text("SEND")
+                    Image(systemName: "paperplane.circle.fill")
                 })
             }
         }
@@ -44,6 +44,6 @@ struct Messages: View {
 
 struct Messages_Previews: PreviewProvider {
     static var previews: some View {
-        Messages(chatroom: Chatroom(id: "10101", title: "My Chat Room", joinCode: 111))
+        Messages(chatroom: Chatroom(id: "EfMijhHfW1ODz8WkHPKJ", title: "My Chat Room", joinCode: 81618))
     }
 }

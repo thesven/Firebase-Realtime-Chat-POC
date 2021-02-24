@@ -40,7 +40,8 @@ struct ChatList: View {
             .sheet(isPresented: self.$showJoin, content: {
                 Join(isOpen: $showJoin)
             })
-        }.navigationViewStyle(StackNavigationViewStyle())
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
         
     }
 }
