@@ -8,6 +8,7 @@ target 'RealTimeChat-Firebase' do
   # Pods for RealTimeChat-Firebase
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
+  pod 'Firebase/Database'
 
   target 'RealTimeChat-FirebaseTests' do
     inherit! :search_paths

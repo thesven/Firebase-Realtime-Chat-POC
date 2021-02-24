@@ -14,10 +14,8 @@ struct Messages: View {
     @State var messageField  = ""
     
     init(chatroom: Chatroom){
-        print("Chat Room Init")
         self.chatroom = chatroom
-        viewModel.fetchData(docId: chatroom.id)
-        print(viewModel.messages.count)
+        self.viewModel.setObserver(docId: chatroom.id)
     }
     
     var body: some View {
@@ -25,7 +23,6 @@ struct Messages: View {
             List(viewModel.messages){ message in
                 HStack{
                     Text(message.content)
-                    Spacer()
                 }
             }
             HStack{
