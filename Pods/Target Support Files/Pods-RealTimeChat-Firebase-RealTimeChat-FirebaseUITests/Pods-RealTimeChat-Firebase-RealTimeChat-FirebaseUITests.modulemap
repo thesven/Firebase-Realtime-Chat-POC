@@ -1,6 +1,0 @@
-framework module Pods_RealTimeChat_Firebase_RealTimeChat_FirebaseUITests {
-  umbrella header "Pods-RealTimeChat-Firebase-RealTimeChat-FirebaseUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
