@@ -23,6 +23,8 @@
 		96ABBADA25E5A98D00B888C2 /* ChatList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ABBAD925E5A98D00B888C2 /* ChatList.swift */; };
 		96ABBADF25E5AE7900B888C2 /* ChatroomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ABBADE25E5AE7900B888C2 /* ChatroomsViewModel.swift */; };
 		96ABBAE425E5B4DF00B888C2 /* Join.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ABBAE325E5B4DF00B888C2 /* Join.swift */; };
+		96ABBB5425E6D93000B888C2 /* MessagesViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ABBB5325E6D93000B888C2 /* MessagesViewModal.swift */; };
+		96ABBB5925E6DD0E00B888C2 /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96ABBB5825E6DD0E00B888C2 /* Messages.swift */; };
 		F3B4353AE5920FDE63C8A214 /* Pods_RealTimeChat_Firebase_RealTimeChat_FirebaseUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0C13711E7D1F6AB7860D23 /* Pods_RealTimeChat_Firebase_RealTimeChat_FirebaseUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		96ABBAD925E5A98D00B888C2 /* ChatList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatList.swift; sourceTree = "<group>"; };
 		96ABBADE25E5AE7900B888C2 /* ChatroomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomsViewModel.swift; sourceTree = "<group>"; };
 		96ABBAE325E5B4DF00B888C2 /* Join.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Join.swift; sourceTree = "<group>"; };
+		96ABBB5325E6D93000B888C2 /* MessagesViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModal.swift; sourceTree = "<group>"; };
+		96ABBB5825E6DD0E00B888C2 /* Messages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
 		E22C5F17B265FEBCA1395993 /* Pods-RealTimeChat-Firebase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RealTimeChat-Firebase.release.xcconfig"; path = "Target Support Files/Pods-RealTimeChat-Firebase/Pods-RealTimeChat-Firebase.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +186,7 @@
 			children = (
 				96ABBACE25E5A73C00B888C2 /* SessionStore.swift */,
 				96ABBADE25E5AE7900B888C2 /* ChatroomsViewModel.swift */,
+				96ABBB5325E6D93000B888C2 /* MessagesViewModal.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				96ABBAD425E5A98200B888C2 /* Login.swift */,
 				96ABBAD925E5A98D00B888C2 /* ChatList.swift */,
 				96ABBAE325E5B4DF00B888C2 /* Join.swift */,
+				96ABBB5825E6DD0E00B888C2 /* Messages.swift */,
 			);
 			path = screens;
 			sourceTree = "<group>";
@@ -447,7 +453,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				96ABBADA25E5A98D00B888C2 /* ChatList.swift in Sources */,
+				96ABBB5925E6DD0E00B888C2 /* Messages.swift in Sources */,
 				96668F3D25E5A354009280A5 /* ContentView.swift in Sources */,
+				96ABBB5425E6D93000B888C2 /* MessagesViewModal.swift in Sources */,
 				96ABBAE425E5B4DF00B888C2 /* Join.swift in Sources */,
 				96668F3B25E5A354009280A5 /* RealTimeChat_FirebaseApp.swift in Sources */,
 				96ABBACF25E5A73C00B888C2 /* SessionStore.swift in Sources */,

@@ -19,19 +19,24 @@ struct ChatList: View {
     var body: some View {
         NavigationView {
             List(viewModel.chatrooms) { chatroom in
-                HStack{
-                    Text(chatroom.title)
-                    Spacer()
+                NavigationLink(
+                    destination: Messages(chatroom: chatroom)){
+                    HStack{
+                        Text(chatroom.title)
+                        Spacer()
+                    }
                 }
             }
             .navigationBarTitle("Chat Rooms")
             .toolbar {
                 ToolbarItem(placement: .automatic) {
-                    Button("Press Me") {
+                    Button(action: {
                         self.showJoin = true
-                    }
+                    }, label: {
+                        Image(systemName: "plus.circle")
+                    })
                 }
-            }
+            }.listItemTint(.purple)
             .sheet(isPresented: self.$showJoin, content: {
                 Join(isOpen: $showJoin)
             })
