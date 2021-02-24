@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatList: View {
     
     @ObservedObject var viewModel = ChatroomsViewModel()
+    @State var showJoin = false
     
     init() {
         viewModel.fetchData()
@@ -24,7 +25,18 @@ struct ChatList: View {
                 }
             }
             .navigationBarTitle("Chat Rooms")
-        }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button("Press Me") {
+                        self.showJoin = true
+                    }
+                }
+            }
+            .sheet(isPresented: self.$showJoin, content: {
+                Join()
+            })
+        }.navigationViewStyle(StackNavigationViewStyle())
+        
     }
 }
 

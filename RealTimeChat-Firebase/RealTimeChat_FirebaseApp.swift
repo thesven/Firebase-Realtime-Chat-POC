@@ -12,12 +12,19 @@ import Firebase
 struct RealTimeChat_FirebaseApp: App {
     
     init(){
-        FirebaseApp.configure()
+        setupFirebase()
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+    }
+}
+
+private extension RealTimeChat_FirebaseApp {
+    func setupFirebase() {
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
+        FirebaseApp.configure()
     }
 }

@@ -31,7 +31,7 @@ struct Login: View {
                     Text("Sign Up")
                 })
             }
-            .navigationBarTitle("Welcome")
+            .navigationTitle("Welcome")
         }
     }
 }
