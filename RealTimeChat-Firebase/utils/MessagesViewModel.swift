@@ -22,22 +22,20 @@ class MessagesViewModel: ObservableObject {
     private let dbref = Database.database().reference()
     
     func setObserver(docId: String){
-        db.reference(withPath: docId).observe(DataEventType.value, with: {(snapshot) in
+        db.reference(withPath: "messages").queryOrdered(byChild: "chatID").queryEqual(toValue: docId).observe(DataEventType.value, with: {(snapshot) in
             if snapshot.exists(){
-                let dataSnap: DataSnapshot = snapshot.childSnapshot(forPath: "messages")
+                let dataSnap: DataSnapshot = snapshot
                 
                 var newMessages = [Message]()
                 for child in dataSnap.children {
                     let snap: DataSnapshot = (child as? DataSnapshot)!
                     let dict = snap.value as? [String: String]
                     let messageContent = dict?["content"]
-                    print("content :: \(messageContent)")
                     let displayName = dict?["displayName"]
                     let message = Message(id: snap.key, content: messageContent ?? "", name: displayName ?? "")
                     newMessages.append(message)
                 }
                 self.messages = newMessages
-                print(self.messages)
             }
         })
     }
@@ -46,7 +44,7 @@ class MessagesViewModel: ObservableObject {
         if user != nil {
             let formatter = DateFormatter()
             let date: String = formatter.string(from: Date())
-            dbref.child(docId).child("messages").childByAutoId().setValue([
+            dbref.child("messages").childByAutoId().setValue([
                 "content": messageContent,
                 "displayName": user?.email as Any,
                 "sentAt": date,
