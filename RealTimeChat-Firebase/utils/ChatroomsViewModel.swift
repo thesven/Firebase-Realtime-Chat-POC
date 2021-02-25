@@ -71,6 +71,7 @@ class ChatroomsViewModel: ObservableObject {
     }
     
     public func doSearch(term: String) {
+        
         print("perform search for \(term) for user \(user!.uid)")
         //check to see that the user is loged in
         if(user != nil){
@@ -78,44 +79,59 @@ class ChatroomsViewModel: ObservableObject {
             Database.database().reference().child("messages").queryOrdered(byChild: "sender").queryEqual(toValue: user?.uid).observeSingleEvent(of: .value, with: {(dataSnapshot) in
                 
                 guard let snap: DataSnapshot = dataSnapshot as? DataSnapshot else {
-                    print("no results for term \(term)")
+                    print("user has no messges")
                     return
                 }
                 
-                var postIds = [String]()
-                for message in snap.children {
-                    let data: DataSnapshot = (message as? DataSnapshot)!
-                    let dict = data.value as? [String: String]
-                    let chatID: String = (dict?["chatID"] ?? "") as String
-                    let content: String = (dict?["content"] ?? "") as String
-                    if content.contains(term) {
+                //look for messages containing the key
+                let ref = snap.ref
+                let endTerm: String = term + "\u{f8ff}"
+                ref.queryOrdered(byChild: "content").queryStarting(atValue: term).queryEnding(atValue: endTerm).observeSingleEvent(of: .value, with: {(dataSnapshot) in
+                    
+                    guard let snap: DataSnapshot = dataSnapshot as? DataSnapshot else {
+                        print("Can't find string \(term) in messages")
+                        return
+                    }
+                    
+                    var postIds = [String]()
+                    for message in snap.children {
+                        let data: DataSnapshot = message as! DataSnapshot
+                        let chatID: String = (data.childSnapshot(forPath: "chatID").value! as! String)
                         if !postIds.contains(chatID){
                             postIds.append(chatID)
                         }
                     }
                     
-                }
-                
-                self.db.collection("chatrooms").whereField(FieldPath.documentID(), in: postIds).getDocuments(completion: {(snapshot, error) in
-                    guard let documents = snapshot?.documents else {
-                        print("No Documents Returned")
-                        return
+                    if postIds.count > 0 {
+                        self.updateMessages(postIds: postIds)
                     }
                     
-                    // TODO change this into a function
-                    self.chatrooms = documents.map({docSnapshot -> Chatroom in
-                        let data = docSnapshot.data()
-                        let docId = docSnapshot.documentID
-                        let title = data["title"] as? String ?? ""
-                        let joinCode = data["joinCode"] as? Int ?? -1
-                        return Chatroom(id: docId, title: title, joinCode: joinCode)
-                    })
                 })
                 
                 
             })
             
         }
+    }
+    
+    private func updateMessages(postIds: [String]){
+        
+        self.db.collection("chatrooms").whereField(FieldPath.documentID(), in: postIds).getDocuments(completion: {(snapshot, error) in
+            guard let documents = snapshot?.documents else {
+                print("No Documents Returned")
+                return
+            }
+            
+            // TODO change this into a function
+            self.chatrooms = documents.map({docSnapshot -> Chatroom in
+                let data = docSnapshot.data()
+                let docId = docSnapshot.documentID
+                let title = data["title"] as? String ?? ""
+                let joinCode = data["joinCode"] as? Int ?? -1
+                return Chatroom(id: docId, title: title, joinCode: joinCode)
+            })
+        })
+        
     }
     
 }
