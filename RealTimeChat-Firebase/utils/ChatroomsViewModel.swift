@@ -28,6 +28,7 @@ class ChatroomsViewModel: ObservableObject {
                     return
                 }
                 
+                // TODO change this into a function
                 self.chatrooms = documents.map({docSnapshot -> Chatroom in
                     let data = docSnapshot.data()
                     let docId = docSnapshot.documentID
@@ -66,6 +67,49 @@ class ChatroomsViewModel: ObservableObject {
                     }
                 }
             }
+        }
+    }
+    
+    public func doSearch(term: String) {
+        print("perform search for \(term)")
+        //check to see that the user is loged in
+        if(user != nil){
+            //get all messages from the sender
+            Database.database().reference(withPath: "EfMijhHfW1ODz8WkHPKJ/messages").queryOrdered(byChild: "sender").queryEqual(toValue: user?.uid).getData(completion:  { (error, dataSnapshot) in
+                guard let snap: DataSnapshot = dataSnapshot as? DataSnapshot else {
+                    print("no results for term \(term)")
+                    return
+                }
+                
+                //get all of the unique chat IDs
+                var postIds = [String]()
+                for message in snap.children {
+                    let data: DataSnapshot = (message as? DataSnapshot)!
+                    let dict = data.value as? [String: String]
+                    let chatID: String = (dict?["chatID"] ?? "") as String
+                    if !postIds.contains(chatID){
+                        postIds.append(chatID)
+                    }
+                }
+                
+                //get the individual chats
+                self.db.collection("chatrooms").whereField(FieldPath.documentID(), in: postIds).getDocuments(completion: {(snapshot, error) in
+                    guard let documents = snapshot?.documents else {
+                        print("No Documents Returned")
+                        return
+                    }
+                    
+                    // TODO change this into a function
+                    self.chatrooms = documents.map({docSnapshot -> Chatroom in
+                        let data = docSnapshot.data()
+                        let docId = docSnapshot.documentID
+                        let title = data["title"] as? String ?? ""
+                        let joinCode = data["joinCode"] as? Int ?? -1
+                        return Chatroom(id: docId, title: title, joinCode: joinCode)
+                    })
+                })
+                
+            })
         }
     }
     

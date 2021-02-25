@@ -50,7 +50,8 @@ class MessagesViewModel: ObservableObject {
                 "content": messageContent,
                 "displayName": user?.email as Any,
                 "sentAt": date,
-                "sender": user?.uid as Any
+                "sender": user?.uid as Any,
+                "chatID": docId
             ])
         }
     }

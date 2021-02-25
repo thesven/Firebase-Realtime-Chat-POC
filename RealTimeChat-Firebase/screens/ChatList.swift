@@ -11,19 +11,33 @@ struct ChatList: View {
     
     @ObservedObject var viewModel = ChatroomsViewModel()
     @State var showJoin = false
+    @State var searchText = ""
     
     init() {
         viewModel.fetchData()
     }
     
+    
+    
     var body: some View {
         NavigationView {
-            List(viewModel.chatrooms) { chatroom in
-                NavigationLink(
-                    destination: Messages(chatroom: chatroom)){
-                    HStack{
-                        Text(chatroom.title)
-                        Spacer()
+            VStack{
+                HStack{
+                    TextField("Search ...", text: $searchText).textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: {
+                        viewModel.doSearch(term: self.searchText)
+                    }, label: {
+                        Image(systemName: "magnifyingglass.circle")
+                    })
+                }
+                .padding()
+                List(viewModel.chatrooms) { chatroom in
+                    NavigationLink(
+                        destination: Messages(chatroom: chatroom)){
+                        HStack{
+                            Text(chatroom.title)
+                            Spacer()
+                        }
                     }
                 }
             }
